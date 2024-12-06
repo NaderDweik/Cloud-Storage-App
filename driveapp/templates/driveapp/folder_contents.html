@@ -1,0 +1,217 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ folder.name }} - Folder Contents</title>
+    <link rel="stylesheet" href="{% static 'driveapp/css/index.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Alkatra:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Style for the selected folder */
+        .destination-button.selected {
+            background-color: #FFD700; /* Example: Gold background */
+            color: #333; /* Dark text */
+            border: 1px solid #FFA500; /* Orange border for emphasis */
+        }
+    </style>
+</head>
+<body class="light-mode">
+    <div class="navbar">
+        <h1>{{ folder.name }}</h1>
+        <div class="logout">
+            <a href="{% url 'index' %}" aria-label="Back to main drive">
+                <i class="fas fa-arrow-left"></i> Back to Drive
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="creation">
+            <!-- Create Subfolder Section -->
+            <div class="create-folder-section">
+                <h2>Create a Subfolder in {{ folder.name }}</h2>
+                <form action="{% url 'create_folder' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="text" name="folder_name" placeholder="Enter folder name" required>
+                    <input type="hidden" name="parent_folder_id" value="{{ folder.id }}">
+                    <button type="submit" class="create-folder-button">
+                        <i class="fas fa-folder-plus"></i> Create 
+                    </button>
+                </form>
+            </div>
+
+            <!-- File Upload Section -->
+            <div class="upload-section">
+                <h2>Upload a File to {{ folder.name }}</h2>
+                <form action="{% url 'upload_file' %}" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="file" name="file" required>
+                    <input type="hidden" name="folder_id" value="{{ folder.id }}">
+                    <button type="submit" class="upload-button">
+                        <i class="fas fa-upload"></i> Upload 
+                    </button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Folder and File Browser Section -->
+        <div class="file-browser">
+            <h2>Contents of {{ folder.name }}</h2>
+            <div class="file-grid" id="file-grid">
+                {% for subfolder in folders %}
+                    <div class="file-card">
+                        <a href="{% url 'folder_contents' subfolder.id %}">
+                            <img src="https://img.icons8.com/ios/50/000000/file--v1.png" alt="folder icon">
+                            <p>{{ subfolder.name }}</p>
+                        </a>
+                    </div>
+                {% endfor %}
+                {% for file in files %}
+                    <div class="file-card" data-file-id="{{ file.id }}" data-file-name="{{ file.name }}" data-file-type="{{ file.file_type }}" onclick="openFileModal({{ file.id }}, '{{ file.name }}', '{{ file.file_type }}', 'N/A', '{{ file.uploaded_at|date:'Y-m-d' }}')">
+                        <img src="{{ file.get_icon }}" alt="{{ file.file_type }} icon">
+                        <p>{{ file.name }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Modal for File Metadata -->
+        <div id="file-modal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeFileModal()">&times;</span>
+                <h2>File Metadata</h2>
+                <p><strong>Name:</strong> <span id="file-name"></span></p>
+                <p><strong>Type:</strong> <span id="file-type"></span></p>
+                <p><strong>Size:</strong> <span id="file-size"></span></p>
+                <p><strong>Date:</strong> <span id="file-date"></span></p>
+                <button id="download-button" class="download-button" onclick="downloadFile()"><i class="fas fa-download"></i> Download</button>
+                <button id="delete-button" class="delete-button" onclick="deleteFile()"><i class="fas fa-trash"></i> Delete</button>
+                <button id="copy-button" class="copy-button" onclick="openDestinationModal('copy')"><i class="fas fa-copy"></i> Copy</button>
+                <button id="move-button" class="move-button" onclick="openDestinationModal('move')"><i class="fas fa-arrows-alt"></i> Move</button>
+            </div>
+        </div>
+
+        <!-- Modal for Move/Copy Destination -->
+        <div id="destination-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-destination" onclick="closeDestinationModal()">&times;</span>
+                <h2>Select Destination</h2>
+                <p>Are you sure you want to <span id="action-type"></span> <span id="dest-file-name"></span> to:</p>
+                <div class="destination-options" id="destination-options">
+                    {% for folder in folders %}
+                        <button class="destination-button" onclick="selectDestination({{ folder.id }}, this)">{{ folder.name }}</button>
+                    {% endfor %}
+                </div>
+                <button id="confirm-button" class="confirm-button" onclick="confirmAction()">Confirm</button>
+                <button id="cancel-button" class="cancel-button" onclick="closeDestinationModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentFileId;
+        let currentAction;
+        let selectedDestinationId = null;
+
+        function openFileModal(fileId, fileName, fileType, fileSize, fileDate) {
+            currentFileId = fileId;
+            document.getElementById("file-name").innerText = fileName;
+            document.getElementById("file-type").innerText = fileType;
+            document.getElementById("file-size").innerText = fileSize;
+            document.getElementById("file-date").innerText = fileDate;
+            document.getElementById("file-modal").style.display = "block";
+        }
+
+        function closeFileModal() {
+            document.getElementById("file-modal").style.display = "none";
+        }
+
+        function openDestinationModal(action) {
+            currentAction = action;
+            document.getElementById("action-type").innerText = action;
+            document.getElementById("dest-file-name").innerText = document.getElementById("file-name").innerText;
+            document.getElementById("destination-modal").style.display = "block";
+            selectedDestinationId = null; // Reset selected destination
+            clearSelectedFolderHighlight(); // Clear any previously highlighted folder
+        }
+
+        function closeDestinationModal() {
+            document.getElementById("destination-modal").style.display = "none";
+        }
+
+        function selectDestination(folderId, buttonElement) {
+            selectedDestinationId = folderId;
+            clearSelectedFolderHighlight(); // Remove previous selection
+            buttonElement.classList.add("selected"); // Highlight the selected folder
+        }
+
+        function clearSelectedFolderHighlight() {
+            const buttons = document.querySelectorAll(".destination-button");
+            buttons.forEach(button => button.classList.remove("selected"));
+        }
+
+        function deleteFile() {
+            fetch(`/delete/${currentFileId}/`, { method: 'POST', headers: { 'X-CSRFToken': '{{ csrf_token }}' } })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("File deleted successfully.");
+                        location.reload();
+                    }
+                });
+        }
+
+        function copyFile(destination) {
+            fetch(`/copy/${currentFileId}/?destination=${destination}`, { method: 'POST', headers: { 'X-CSRFToken': '{{ csrf_token }}' } })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("File copied successfully.");
+                        closeDestinationModal();
+                        location.reload();
+                    }
+                });
+        }
+
+        function moveFile(destination) {
+            fetch(`/move/${currentFileId}/?destination=${destination}`, { method: 'POST', headers: { 'X-CSRFToken': '{{ csrf_token }}' } })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("File moved successfully.");
+                        closeDestinationModal();
+                        location.reload();
+                    }
+                });
+        }
+
+        function confirmAction() {
+            if (selectedDestinationId) {
+                if (currentAction === 'copy') {
+                    copyFile(selectedDestinationId);
+                } else if (currentAction === 'move') {
+                    moveFile(selectedDestinationId);
+                }
+            } else {
+                alert("Please select a destination folder.");
+            }
+        }
+
+        function downloadFile() {
+            window.location.href = `/download/${currentFileId}/`;
+        }
+
+        window.onclick = function(event) {
+            const fileModal = document.getElementById("file-modal");
+            const destinationModal = document.getElementById("destination-modal");
+            if (event.target == fileModal) {
+                closeFileModal();
+            } else if (event.target == destinationModal) {
+                closeDestinationModal();
+            }
+        }
+    </script>
+</body>
+</html>

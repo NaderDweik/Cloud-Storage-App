@@ -1,0 +1,356 @@
+@import url('https://fonts.googleapis.com/css2?family=Alkatra:wght@400;500;600;700&display=swap');
+
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, p, h1, h2, h3, h4, h5, h6, button, a, span, input, label, img {
+    font-family: 'Alkatra', cursive;
+}
+
+/* Light Mode Styles */
+body.light-mode {
+    background-color: #F7F7F8; /* Light grey background */
+    color: #1a103c; /* Dark purple text */
+}
+
+body.light-mode .navbar {
+    background-color: #3795BD; /* Turquoise navbar */
+    color: white;
+}
+
+body.light-mode button {
+    color: white; /* White text for buttons */
+    background-color: #3795BD; /* Turquoise button */
+}
+
+body.light-mode button:hover {
+    background-color: #1a103c; /* Dark blue hover for buttons */
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #1a103c; /* Dark purple background */
+    color: #F7F7F8; /* Light grey text */
+}
+
+body.dark-mode .navbar {
+    background-color: #1a103c; /* Rich purple navbar */
+}
+
+body.dark-mode button {
+    background-color: #74E291; /* Light green button */
+}
+
+body.dark-mode button:hover {
+    background-color: #1a103c; /* Dark blue hover for buttons */
+    color: #F7F7F8; /* Light grey text on hover */
+}
+
+body.dark-mode .file-card {
+    background-color: transparent;
+    box-shadow: 0 2px 5px rgba(33, 28, 106, 0.1);
+}
+
+body.dark-mode .file-card:hover {
+    box-shadow: 0 6px 15px rgba(116, 226, 145, 0.348);
+    transform: scale(1.05) translateY(-5px);
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    box-shadow: 0 4px 10px rgba(33, 28, 106, 0.1); /* Dark blue shadow */
+}
+
+/* Logout Button (as an icon) */
+.logout {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logout a {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+    padding: 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.logout a:hover {
+    background-color: transparent; /* Turquoise hover for logout */
+    color: #1a103c; /* Dark blue text on hover */
+}
+
+body.dark-mode .logout a:hover {
+    color: #74E291; /* Light green text on hover */
+}
+
+/* File Browser Section */
+.file-browser {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(33, 28, 106, 0.1);
+}
+
+.file-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+/* File Card Style (Grid) */
+.file-card {
+    background-color: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.3); /* Soft border */
+    padding: 15px;
+    text-align: center;
+    border-radius: 10px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(33, 28, 106, 0.1);
+}
+
+.file-card:hover {
+    box-shadow: 0 10px 20px rgba(55, 149, 189, 0.348);
+    transform: scale(1.05) translateY(-5px);
+}
+
+.file-card img {
+    width: 50px;
+    height: 50px;
+    margin-bottom: 10px;
+}
+
+/* Change icon color to white in dark mode */
+body.dark-mode .file-card img {
+    filter: brightness(0) invert(1); /* Make icons white */
+}
+
+.file-card p {
+    font-size: 14px;
+    color: inherit;
+}
+
+/* General Container Styling */
+.container {
+    margin: 20px;
+}
+
+.creation {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+    padding: 50px 120px; /* Combined padding */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(33, 28, 106, 0.1);
+}
+
+.create-folder-section h2,
+.upload-section h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.create-folder-section form {
+    display: flex;
+    align-items: center;
+}
+
+.create-folder-section input[type="text"] {
+    padding: 10px;
+    font-size: 12px;
+    border: 1px solid #1a103c; /* Dark purple border */
+    border-radius: 5px;
+    margin-right: 70px;
+    width: 200px;
+    height: 40px;
+}
+
+.create-folder-button,
+.upload-button {
+    background-color: #3795BD; /* Turquoise button */
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.create-folder-button:hover,
+.upload-button:hover {
+    background-color: #1a103c; /* Dark blue hover for buttons */
+    transform: scale(1.05);
+}
+
+/* Dark Mode Styles */
+body.dark-mode .creation {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark-mode .create-folder-button,
+body.dark-mode .upload-button {
+    background-color: #74E291; /* Light green button */
+    color: #1a103c; /* Dark purple text */
+}
+
+
+
+/* Dark Mode Styles for Cursor */
+body.dark-mode .cursor::before {
+    border-bottom-color: #74E291; /* Light green */
+}
+.download-button
+{
+    margin-top: 5%;
+    margin-bottom: 2%;
+}
+/* Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: #fefefe; /* Light grey background */
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 30%; /* Could be more or less, depending on screen size */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(33, 28, 106, 0.1);  
+}
+
+body.dark-mode .modal-content {
+    background-color: #1a103c; /* Light grey background */
+}
+
+body.dark-mode .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(255, 255, 255, 0.153); /* Black w/ opacity */
+}
+
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #1a103c;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+body.dark-mode .close:hover,
+.close:focus {
+    color: #74E291;
+    text-decoration: none;
+    cursor: pointer;
+}
+/* Modal Button Styles */
+.modal-content button {
+    margin-right: 10px;
+    background-color: #3795BD; /* Turquoise button */
+    color: white; /* White text */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.modal-content button:hover {
+    background-color: #1a103c; /* Dark blue hover for modal buttons */
+}
+/* Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+/* New styles for the destination modal */
+.destination-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+}
+
+.destination-button {
+    background-color: #3795BD; /* Turquoise button */
+    color: white; /* White text */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.destination-button:hover {
+    background-color: #1a103c; /* Dark blue hover */
+}
+
+.confirm-button,
+.cancel-button {
+    margin: 5px;
+    background-color: #3795BD; /* Turquoise button */
+    color: white; /* White text */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.confirm-button:hover,
+.cancel-button:hover {
+    background-color: #1a103c; /* Dark blue hover */
+}
+/* Modal Button Styles */
+.modal-content button {
+    margin-right: 10px;
+    background-color: #3795BD; /* Turquoise button */
+    color: white; /* White text */
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}

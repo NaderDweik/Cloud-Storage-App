@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'driveapp/css/sign-up.css' %}">
+    <title>Sign-up Page</title>
+</head>
+<body class="light-mode">
+    <div class="navbar">
+        <h1>My Drive</h1>
+        <div class="logout">
+            <button onclick="toggleMode()">Switch to Dark Mode</button>
+        </div>
+    </div>
+    <div class="form-container">
+        <div class="header-container">
+            <h1>Join Us !!</h1>
+        </div>
+        <form id="signupForm" class="signup-form" action="{% url 'signup' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group signup-section">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+                <span class="error" id="usernameError"></span>
+            </div>
+            <div class="form-group signup-section">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+                <span class="error" id="emailError"></span>
+            </div>
+            <div class="form-group signup-section">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+                <span class="error" id="passwordError"></span>
+            </div>
+            <div class="form-group signup-section">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
+                <span class="error" id="confirmPasswordError"></span>
+            </div>
+            <div class="button-container">
+                <button type="submit" class="signup-button">Register</button>
+            </div>
+        </form>
+        <div class="header-container">
+            <p class="already-have-account">Already have an account? <a href="{% url 'signin' %}">Log in</a></p>
+        </div>
+    </div>
+    <script src="{% static 'driveapp/js/sign-up.js' %}"></script>
+</body>
+</html>

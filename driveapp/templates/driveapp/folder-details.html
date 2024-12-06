@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folder Content</title>
+    <link rel="stylesheet" href="{% static 'driveapp/css/index.css' %}"> <!-- Link to your main CSS file -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="light-mode">
+    <div class="navbar">
+        <h1>My Drive</h1>
+        <div class="logout">
+            <a href="{% url 'index' %}" aria-label="Back to dashboard">
+                <i class="fas fa-arrow-left"></i> Back
+            </a>
+            <a href="{% url 'space_distribution' %}" aria-label="View space distribution">
+                <i class="fas fa-chart-pie"></i> Space Distribution
+            </a>
+            <a href="#" class="mode-toggle" id="mode-toggle" aria-label="Toggle dark/light mode">
+                <i class="fas fa-moon"></i>
+            </a>
+            <a href="{% url 'signin' %}" class="logout" aria-label="Logout">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- File Browser Section -->
+        <div class="file-browser">
+            <h2>Your Files and Folders</h2>
+            <div class="file-grid" id="file-grid">
+                <div class="file-card" data-file-name="file1.txt" data-file-type="text" data-file-size="1KB" data-file-date="2024-10-26">
+                    <img src="{"https://img.icons8.com/ios/50/000000/file--v1.png"}" alt="file icon">
+                    <p>file1.txt</p>
+                </div>
+                <div class="file-card" data-file-name="image1.png" data-file-type="image" data-file-size="2MB" data-file-date="2024-10-26">
+                    <img src="https://img.icons8.com/ios/50/000000/image-file.png" alt="image icon">
+                    <p>image1.png</p>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Modal for File Metadata -->
+        <div id="file-modal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>File Metadata</h2>
+                <p><strong>Name:</strong> <span id="file-name"></span></p>
+                <p><strong>Type:</strong> <span id="file-type"></span></p>
+                <p><strong>Size:</strong> <span id="file-size"></span></p>
+                <p><strong>Date:</strong> <span id="file-date"></span></p>
+                <button id="download-button" class="download-button"><i class="fas fa-download"></i> Download</button>
+                <button id="delete-button" class="delete-button"><i class="fas fa-trash"></i> Delete</button>
+                <button id="copy-button" class="copy-button"><i class="fas fa-copy"></i> Copy</button>
+                <button id="move-button" class="move-button"><i class="fas fa-arrows-alt"></i> Move</button>
+            </div>
+        </div>
+
+        <!-- Modal for Move/Copy Destination -->
+        <div id="destination-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-destination">&times;</span>
+                <h2>Select Destination</h2>
+                <p>Are you sure you want to copy/move <span id="dest-file-name"></span> to:</p>
+                <div class="destination-options">
+                    <button class="destination-button" data-destination="folder1">Folder 1</button>
+                    <button class="destination-button" data-destination="folder2">Folder 2</button>
+                    <button class="destination-button" data-destination="folder3">Folder 3</button>
+                </div>
+                <button id="confirm-button" class="confirm-button">Confirm</button>
+                <button id="cancel-button" class="cancel-button">Cancel</button>
+            </div>
+        </div>
+
+    <script src="{% static 'driveapp/js/index.js' %}"></script>
+</body>
+</html>

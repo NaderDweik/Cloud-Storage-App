@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Alkatra:wght@400;500;600;700&display=swap');
+
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Font Styling */
+body, p, h1, h2, h3, h4, h5, h6, button, a, span, input, label, img {
+    font-family: 'Alkatra', cursive;
+}
+
+/* Light Mode Styles */
+body.light-mode {
+    background-color: #F7F7F8; /* Light grey background */
+    color: #1a103c; /* Dark purple text */
+}
+
+body.light-mode .navbar {
+    background-color: #3795BD; /* Turquoise navbar */
+    color: white;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #1a103c; /* Dark purple background */
+    color: #F7F7F8; /* Light grey text */
+}
+
+body.dark-mode .navbar {
+    background-color: #1a103c; /* Rich purple navbar */
+    color: white;
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    box-shadow: 0 4px 10px rgba(33, 28, 106, 0.1); /* Dark blue shadow */
+}
+
+/* Logout Button (as an icon) */
+.logout {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logout a {
+    color: white;
+    background-color: transparent;
+    text-decoration: none;
+    padding: 10px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.logout a i {
+    font-size: 1.2rem; /* Icon size */
+}
+
+/* Charts Container */
+.charts-container {
+    display: flex; /* Enable flexbox */
+    justify-content: space-around; /* Space between charts */
+    align-items: flex-start; /* Align items at the top */
+    flex-wrap: wrap; /* Allow wrapping for responsiveness */
+    margin: 0 auto; /* Center in container */
+}
+
+/* Chart Container */
+.chart-container, .pie-container {
+    width: 40%; /* Set width for each chart */
+    margin-bottom: 30px; /* Space between charts vertically */
+    margin-top: 8.5%;
+    padding: 10px; /* Add padding inside each chart container */
+    text-align: center; /* Center text in each container */
+}
+
+.pie-container {
+    width: 25%; /* Set width specifically for pie chart */
+    margin-top: 100px;
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
+/* Chart Titles */
+.chart-container h2, .pie-container h2 {
+    margin-bottom: 20px; /* Space between title and chart */
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .charts-container {
+        flex-direction: column; /* Stack the charts vertically */
+        align-items: center; /* Center the charts */
+    }
+
+    .chart-container, .pie-container {
+        width: 80%; /* Make the charts take up more width on smaller screens */
+        margin-bottom: 20px; /* Reduce margin between the charts */
+    }
+}
+
+/* Logout Button Hover Effects */
+.logout a:hover {
+    color: #1a103c; /* Dark blue text on hover */
+}
+
+body.dark-mode .logout a:hover {
+    color: #74E291; /* Light green text on hover */
+}
+
+/* Button Hover Effects */
+body.light-mode button:hover {
+    color: white; /* White text for buttons */
+    background-color: #1a103c; /* Turquoise hover for buttons */
+}
+
+body.light-mode .navbar button:hover {
+    background-color: transparent; /* Dark blue hover for navbar buttons */
+    color: #1a103c;
+}

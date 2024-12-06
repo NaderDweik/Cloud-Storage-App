@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Distribution</title>
+    <link rel="stylesheet" href="{% static 'driveapp/css/space-distribution.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Alkatra:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" defer></script>
+    <script src="{% static 'driveapp/js/space-distribution.js' %}" defer></script>
+</head>
+<body class="light-mode">
+    <header class="navbar">
+        <h1>My Drive</h1>
+        <h1>Dashboard</h1>
+        <div class="logout">
+            <a href="{% url 'index' %}" aria-label="Back to dashboard">
+                <i class="fas fa-arrow-left"></i> Back
+            </a>
+            <a href="#" class="mode-toggle" id="mode-toggle" aria-label="Toggle dark/light mode">
+                <i class="fas fa-moon"></i>
+            </a>
+            <a href="{% url 'signin' %}" class="logout" aria-label="Logout">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="charts-container">
+            <div class="pie-container">
+                <h2>File Format Space Distribution</h2>
+                <canvas id="fileDistributionChart"></canvas>
+            </div>
+            <div class="chart-container">
+                <h2>Storage Over Time</h2>
+                <canvas id="storageOverTimeChart"></canvas>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

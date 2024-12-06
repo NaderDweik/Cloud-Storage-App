@@ -1,0 +1,229 @@
+@import url('https://fonts.googleapis.com/css2?family=Alkatra:wght@400;500;600;700&display=swap');
+
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+     /* Hide default cursor */
+}
+
+/* General Container Styling */
+.container {
+    margin: 20px;
+}
+
+/* Form Container */
+.form-container {
+    display: flex;
+    flex-direction: column; /* Stack elements vertically */
+    align-items: center; /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    height: 90vh; /* Full viewport height for centering */
+}
+
+.form-group {
+    margin-bottom: 15px; /* Space between form elements */
+}
+
+/* Style for error messages */
+.error {
+    color: red;
+    font-size: 12px;
+}
+
+/* Already Have Account Section */
+.already-have-account {
+    margin-top: 20px; /* Space above this section */
+    text-align: center; /* Center text */
+}
+
+.already-have-account a {
+    color: #3795BD; /* Link color */
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.already-have-account a:hover {
+    color: #1a103c; /* Dark blue on hover */
+}
+
+body.dark-mode .already-have-account a {
+    color: #74E291; /* Link color */
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+body.dark-mode .already-have-account a:hover {
+    color: #ffffff; /* Dark blue on hover */
+}
+body, p, h1, h2, h3, h4, h5, h6, button, a, span, input, label, img {
+    font-family: 'Alkatra', cursive;
+     /* Hide default cursor */
+}
+
+/* Light Mode Styles */
+body.light-mode {
+    background-color: #F7F7F8; /* Light grey background */
+    color: #1a103c; /* Dark purple text */
+}
+
+body.light-mode .navbar {
+    background-color: #3795BD; /* Turquoise navbar */
+    color: white;
+}
+
+body.light-mode .logout {
+    margin-left: auto; /* Align logout button to the right */
+}
+
+body.light-mode button {
+    color: white; /* White text for buttons */
+    background-color: #3795BD;
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #1a103c; /* Dark purple background */
+    color: #F7F7F8; /* Light grey text */
+}
+
+body.dark-mode .navbar {
+    background-color: #1a103c; /* Rich purple navbar */
+    color: white;
+}
+
+body.dark-mode button {
+    background-color: #74E291; /* Light green button */
+}
+
+/* Navbar */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+    box-shadow: 0 4px 10px rgba(33, 28, 106, 0.1); /* Dark blue shadow */
+}
+
+/* Logout Button (as an icon) */
+.logout {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logout button {
+    color: white;
+    background-color: transparent;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+/* Sign Up Form Styles */
+.signup-form {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 30px;
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(33, 28, 106, 0.1);
+}
+
+.signup-section {
+    flex-basis: 45%; /* Adjust width of each section */
+    margin-bottom: 20px; /* Space between rows */
+}
+
+.signup-section h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.signup-section label {
+    display: block; /* Make labels block elements for spacing */
+    margin-bottom: 5px;
+}
+
+.signup-section input[type="text"],
+.signup-section input[type="email"],
+.signup-section input[type="password"] {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc; /* Change border color to match theme */
+    border-radius: 5px;
+    width: 100%; /* Make input take full width */
+    height: 40px;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+    display: none; /* Initially hide error messages */
+}
+
+.signup-button {
+    background-color: #3795BD;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.signup-button:hover {
+    background-color: #1a103c;
+    transform: scale(1.05);
+}
+
+/* Dark Mode Styles */
+body.dark-mode .signup-section h2,
+body.dark-mode .error {
+    color: #F7F7F8; /* Light grey text */
+}
+
+body.dark-mode .signup-button {
+    background-color: #74E291; /* Light green */
+    color: #1a103c; /* Dark purple */
+}
+
+body.dark-mode .signup-button:hover {
+    background-color: #1a103c; /* Dark purple */
+    color: #F7F7F8; /* Light grey */
+}
+
+
+/* Dark Mode Styles for Cursor */
+body.dark-mode .cursor::before {
+    border-bottom-color: #74E291;
+}
+
+/* Centering for Header Container */
+.header-container {
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
+    width: 100%; /* Full width for proper centering */
+    margin: 20px 0; /* Space above and below the header */
+}
+
+/* Specific styles for header elements */
+.header-container h1 {
+    margin-bottom: 10px; /* Space between title and form */
+}
+
+.header-container p {
+    margin-top: 10px; /* Space between paragraph and other elements */
+}
+
+.button-container {
+    width: 100%; /* Full width for proper centering */
+    text-align: center; /* Center the button horizontally */
+    margin-top: 20px; /* Space above the button, adjust as needed */
+}

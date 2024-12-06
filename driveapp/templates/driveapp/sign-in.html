@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'driveapp/css/sign-in.css' %}"> <!-- Updated CSS file -->
+    <title>Sign-in Page</title>
+</head>
+<body class="light-mode">
+    <div class="navbar">
+        <h1>My Drive</h1>
+        <div class="logout">
+            <button onclick="toggleMode()">Switch to Dark Mode</button>
+        </div>
+    </div>
+    <div class="form-container">
+        <div class="header-container">
+            <h1>Welcome Back !!</h1>
+        </div>
+        <form id="signinForm" class="signin-form" action="{% url 'signin' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-group signin-section">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required>
+                <span class="error" id="usernameError"></span>
+            </div>
+            <div class="form-group signin-section">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required>
+                <span class="error" id="passwordError"></span>
+            </div>
+            <div class="button-container">
+                <button type="submit" class="signin-button">Login</button>
+            </div>
+        </form>
+        <div class="header-container">
+            <p class="already-have-account">Don't have an account? <a href="{% url 'signup' %}">Sign up</a></p>
+        </div>
+    </div>
+    <script src="{% static 'driveapp/js/sign-in.js' %}"></script> <!-- Updated JavaScript file -->
+</body>
+</html>

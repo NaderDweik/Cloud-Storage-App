@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload File</title>
+    <link rel="stylesheet" href="{% static 'driveapp/css/index.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Alkatra:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body class="light-mode">
+    <div class="navbar">
+        <h1>Upload File</h1>
+        <div class="logout">
+            <a href="{% url 'index' %}" aria-label="Back to main drive">
+                <i class="fas fa-arrow-left"></i> Back to Drive
+            </a>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Upload a File</h2>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        <form action="{% url 'upload_file' %}" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="file" name="file" required>
+            <input type="hidden" name="folder_id" value="{{ folder_id }}">
+            <button type="submit" class="upload-button">
+                <i class="fas fa-upload"></i> Upload 
+            </button>
+        </form>
+    </div>
+</body>
+</html>
